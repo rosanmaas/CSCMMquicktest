@@ -36,5 +36,31 @@
     color: white;              /* White text */
     border: none;              /* Remove default border */
   ">Back to Form</button>
-    
+
+<h2>Enter Information</h2>
+
+  <label for="b2">Start!B2:</label>
+  <input type="text" id="b2" placeholder="Value for B2"><br><br>
+
+  <label for="b3">Start!B3:</label>
+  <input type="text" id="b3" placeholder="Value for B3"><br><br>
+
+  <button onclick="downloadExcel()">Download Results Sheet as Excel</button>
+
+  <script>
+    function downloadExcel() {
+      const b2 = document.getElementById('b2').value;
+      const b3 = document.getElementById('b3').value;
+      
+      const webAppUrl = "https://script.google.com/macros/s/AKfycbwm4cZ_IgZZKsECK5RowEMVSh6lym_P-LunyBXVdiB9cqidzGneSjXiCUhR3R_3B1Yz/exec";
+      
+      // Construct URL with parameters
+      const url = `${webAppUrl}?b2=${encodeURIComponent(b2)}&b3=${encodeURIComponent(b3)}`;
+      
+      // Open the URL in a new tab (shows download link)
+      window.open(url, "_blank");
+    }
+  </script>
+  
+</body>
 </html>
