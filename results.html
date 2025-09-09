@@ -39,7 +39,95 @@
     color: white;              /* White text */
     border: none;              /* Remove default border */
   ">Back to Form</button>
+<h1>Sheet Data and Charts</h1>
 
+  <form id="inputForm">
+    <label for="b3">Value for B3:</label>
+    <input type="text" id="b3" name="b3" required />
+    <br />
+    <label for="b7">Value for B7:</label>
+    <input type="text" id="b7" name="b7" required />
+    <br />
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>Sheet Data</h2>
+  <div id="sheetData"></div>
+
+  <h2>Charts</h2>
+  <div id="chartsContainer"></div>
+
+  <script>
+    const webAppUrl = 'YOUR_WEB_APP_URL_HERE'; // Replace with your Apps Script Web App URL
+
+    const form = document.getElementById('inputForm');
+    const sheetDataDiv = document.getElementById('sheetData');
+    const chartsContainer = document.getElementById('chartsContainer');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const valueForB3 = document.getElementById('b3').value.trim();
+      const valueForB7 = document.getElementById('b7').value.trim();
+
+      try {
+        const response = await fetch(webAppUrl, {
+          method: 'POST',
+          body: JSON.stringify({ valueForB3, valueForB7 }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const data = await response.json();
+
+        if (data.status !== 'success') {
+          sheetDataDiv.innerHTML = 'Error: ' + (data.message || 'Unknown error');
+          chartsContainer.innerHTML = '';
+          return;
+        }
+
+        displaySheetData(data.data);
+        displayCharts(data.charts);
+      } catch (error) {
+        sheetDataDiv.innerHTML = 'Request failed: ' + error.message;
+        chartsContainer.innerHTML = '';
+      }
+    });
+
+    function displaySheetData(data) {
+      if (!Array.isArray(data) || data.length === 0) {
+        sheetDataDiv.innerHTML = '<p>No data available.</p>';
+        return;
+      }
+
+      let html = '<table><tbody>';
+      data.forEach(row => {
+        html += '<tr>';
+        row.forEach(cell => {
+          html += `<td>${cell !== null && cell !== undefined ? cell : ''}</td>`;
+        });
+        html += '</tr>';
+      });
+      html += '</tbody></table>';
+
+      sheetDataDiv.innerHTML = html;
+    }
+
+    function displayCharts(charts) {
+      chartsContainer.innerHTML = '';
+      if (!Array.isArray(charts) || charts.length === 0) {
+        chartsContainer.innerHTML = '<p>No charts available.</p>';
+        return;
+      }
+
+      charts.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        chartsContainer.appendChild(img);
+      });
+    }
+  </script>
   
 </body>
 </html>
