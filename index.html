@@ -11,6 +11,31 @@
   <p>
   Introduction:	In this Cyber Maturity Quick Test, we aim to give an indication regarding the cyber maturity of you company in a quick and easy way. The test contains a total of around 21 multiple choice questions (MPC questions). Within the set of questions that you answer we measure maturity but we also represent all domains present in maturity models. This means that this test will result in a maturity indication as well as an indication of which domains require improvement.	
   </p>
+  <button id="download-xlsx" style="
+    font-size: 24px;      /* Larger font size */
+    padding: 20px 40px;   /* Bigger padding for width and height */
+    border-radius: 10px;  /* Rounded corners */
+    cursor: pointer;      /* Pointer cursor on hover */
+    background-color: green;   /* Green background */
+    color: white;              /* White text */
+    border: none;              /* Remove default border */
+  ">Download Excel file</button>
+
+  <script>
+    // Replace this URL with the actual 'raw' URL to your Excel file on GitHub
+    const excelFileUrl = 'https://github.com/USERNAME/REPO/raw/main/results.xlsx';
+
+    document.getElementById('download-xlsx').addEventListener('click', function() {
+      // Use a hidden anchor to force download
+      const link = document.createElement('a');
+      link.href = excelFileUrl;
+      link.download = 'results.xlsx'; // Suggested filename
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  </script>
+  <!---
   <h2>Fill out the form beneath</h2>
   <iframe 
     src="https://docs.google.com/forms/d/e/1FAIpQLSedns3FAcuhzcewDxPcj8GS83RPbrqlWzhmh0PUoZmQCv-GBQ/viewform?embedded=true" 
@@ -26,5 +51,6 @@
     color: white;              /* White text */
     border: none;              /* Remove default border */
   ">View Results</button>
+  --->
 </body>
 </html>
