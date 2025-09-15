@@ -175,6 +175,7 @@ function fetchAndFilterSheet() {
       // Display filtered data
       if (filtered.length) {
         filtered.forEach(row => {
+          console.log('Matched Row:', row);
           const firstChars = row.map(cell => String(cell).charAt(0));
           
           // Remove the date and identifier columns (first two chars)
