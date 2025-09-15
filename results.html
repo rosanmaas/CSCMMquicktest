@@ -135,7 +135,7 @@
 <button onclick="fetchAndFilterSheet()">Fetch</button>
 <pre id="output"></pre>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script
 <script>
 const csvUrl = 'https://docs.google.com/spreadsheets/d/1xIJG2PtImOZtyBr6W1-Dpg06eis6YUb3GyMI1xXqHpM/export?format=csv&gid=878535126#gid=878535126';
 // Change this to the column index you want to search the criteria in (0-based)
@@ -152,7 +152,8 @@ function fetchAndFilterSheet() {
   fetch(csvUrl)
     .then(response => response.text())
     .then(csvText => {
-      const data = csvToArray(csvText);
+      const parsed = Papa.parse(csvText, {header: false, skipEmptyLines: true});
+      const data = parsed.data;
       if (data.length < 2) {
         document.getElementById('output').textContent = 'No data found in the sheet.';
         return;
