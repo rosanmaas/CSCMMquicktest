@@ -184,12 +184,18 @@ function fetchAndFilterSheet() {
       } else {
         document.getElementById('output').textContent = 'No match found.';
       }
+      const firstChars = filtered.map(str => str.charAt(0)); 
+      // or simpler: str => str[0]
+
+      console.log(firstChars); // Output: ["A", "B", "C", "D"]
     })
     .catch(error => {
       document.getElementById('output').textContent = 'Error fetching data: ' + error;
       console.error('Fetch error:', error);
     });
 }
+
+  
 </script>
 
 </body>
