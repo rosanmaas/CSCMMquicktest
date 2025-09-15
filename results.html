@@ -137,8 +137,11 @@
 
 
 <script>
-const csvUrl = 'https://docs.google.com/spreadsheets/d/1xIJG2PtImOZtyBr6W1-Dpg06eis6YUb3GyMI1xXqHpM/export?format=csv&gid=878535126';
+const csvUrl = 'https://docs.google.com/spreadsheets/d/1xIJG2PtImOZtyBr6W1-Dpg06eis6YUb3GyMI1xXqHpM/export?format=csv&gid=878535126#gid=878535126';
+// Change this to the column index you want to search the criteria in (0-based)
+const columnIndexToMatch = 1;
 
+  
 function csvToArray(str) {
   const rows = str.split('\n');
   return rows.map(row => row.split(','));
