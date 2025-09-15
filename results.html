@@ -171,23 +171,26 @@ function fetchAndFilterSheet() {
       
       // Display filtered data
       if (filtered.length) {
-        let html = '<table border="1"><tr>';
-        headers.forEach(h => html += `<th>${h}</th>`);
-        html += '</tr>';
         filtered.forEach(row => {
-          html += '<tr>';
-          row.forEach(cell => html += `<td>${cell}</td>`);
-          html += '</tr>';
+          // Extract first chars of the current row cells safely
+          const firstChars = row.map(cell => String(cell).charAt(0));
+          console.log('First chars of this row:', firstChars);
+          
+          // You can put other calculations here
+          // remove the date and identifier and make it all numbers
+          const MatLevels = firstChars.slice(2);
+          const NumberLevels = MatLevels.map(Number);
+
+          // Return Overall Maturity level
+          const Mall = Math.min(NumberLevels);
         });
-        html += '</table>';
-        document.getElementById('output').innerHTML = html;
+      
+        // Clear or empty any existing output display
+        document.getElementById('output').innerHTML = '';
       } else {
         document.getElementById('output').textContent = 'No match found.';
       }
-      const firstChars = row.map(cell => String(cell).charAt(0));
-      // or simpler: str => str[0]
 
-      console.log(firstChars); // Output: ["A", "B", "C", "D"]
     })
     .catch(error => {
       document.getElementById('output').textContent = 'Error fetching data: ' + error;
