@@ -176,8 +176,11 @@ function fetchAndFilterSheet() {
           
           // Remove the date and identifier columns (first two chars)
           const MatLevels = firstChars.slice(2);
-          console.log('charlist:', MatLevels);
-          
+          if (MatLevels.length > 0){
+            console.log('charlist:', MatLevels);
+          } else{ 
+            console.log('No numeric data found.');
+          }
           // Convert to numbers
           const NumberLevels = MatLevels.map(ch => Number(ch)).filter(n => !isNaN(n));
           
