@@ -165,7 +165,9 @@ function fetchAndFilterSheet() {
       console.log('All rows:', rows);
       
       // Find matching rows (case-insensitive match)
-      const filtered = rows.filter(row => row[columnIndexToMatch].trim().toLowerCase() === criteria.trim().toLowerCase());
+      const filtered = rows.filter(row => {
+        return row[columnIndexToMatch] && row[columnIndexToMatch].trim().toLowerCase() === identifier;
+      });
 
       // Print filtered data for debugging
       console.log('Filtered rows:', filtered);
