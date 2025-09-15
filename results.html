@@ -141,18 +141,17 @@ const csvUrl = 'https://docs.google.com/spreadsheets/d/1xIJG2PtImOZtyBr6W1-Dpg06
 // Change this to the column index you want to search the criteria in (0-based)
 const columnIndexToMatch = 1;
 
-  
-function csvToArray(str) {
-  const rows = str.split('\n');
-  return rows.map(row => row.split(','));
-}
-
 function fetchAndFilterSheet() {
-  const criteria = document.getElementById('identifier').value;
-  fetch(csvUrl)
-    .then(response => response.text())
-    .then(csvText => {
-      const parsed = Papa.parse(csvText, {header: false, skipEmptyLines: true});
+  const criteria = document.getElementById('identifier').value.trim().toLowerCase();
+
+      fetch(csvUrl)
+        .then(response => response.text())
+        .then(csvText => {
+          // Parse CSV with header = false (array of arrays)
+          const parsed = Papa.parse(csvText, {
+            header: false,
+            skipEmptyLines: true,
+          });
       const data = parsed.data;
       if (data.length < 2) {
         document.getElementById('output').textContent = 'No data found in the sheet.';
@@ -178,19 +177,19 @@ function fetchAndFilterSheet() {
           const firstChars = row.map(cell => String(cell).charAt(0));
           
           // Remove the date and identifier columns (first two chars)
-          const MatLevels = firstChars.slice(2);
-          if (MatLevels.length > 0){
-            console.log('charlist:', MatLevels);
+          const matLevels = firstChars.slice(2);
+          if (matLevels.length > 0){
+            console.log('charlist:', matLevels);
           } else{ 
             console.log('No numeric data found.');
           }
           // Convert to numbers
-          const NumberLevels = MatLevels.map(ch => Number(ch)).filter(n => !isNaN(n));
+          const numberLevels = matLevels.map(ch => Number(ch)).filter(n => !isNaN(n));
           
           // Calculate the minimum number
-          if (NumberLevels.length > 0) {
-            const Mall = Math.min(...NumberLevels);
-            console.log('Overall Maturity Level:', Mall);
+          if (numberLevels.length > 0) {
+            const mall = Math.min(...NumberLevels);
+            console.log('Overall Maturity Level:', mall);
           } else {
             console.log('No numeric data found.');
           }
