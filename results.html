@@ -176,9 +176,10 @@ function fetchAndFilterSheet() {
           
           // Remove the date and identifier columns (first two chars)
           const MatLevels = firstChars.slice(2);
+          console.log('charlist:', MatLevels);
           
           // Convert to numbers
-          const NumberLevels = MatLevels.map(Number);
+          const NumberLevels = MatLevels.map(ch => Number(ch)).filter(n => !isNaN(n));
           
           // Calculate the minimum number
           if (NumberLevels.length > 0) {
