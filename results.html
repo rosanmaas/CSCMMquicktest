@@ -172,17 +172,21 @@ function fetchAndFilterSheet() {
       // Display filtered data
       if (filtered.length) {
         filtered.forEach(row => {
-          // Extract first chars of the current row cells safely
           const firstChars = row.map(cell => String(cell).charAt(0));
-          console.log('First chars of this row:', firstChars);
           
-          // You can put other calculations here
-          // remove the date and identifier and make it all numbers
+          // Remove the date and identifier columns (first two chars)
           const MatLevels = firstChars.slice(2);
+          
+          // Convert to numbers
           const NumberLevels = MatLevels.map(Number);
-
-          // Return Overall Maturity level
-          const Mall = Math.min(NumberLevels);
+          
+          // Calculate the minimum number
+          if (NumberLevels.length > 0) {
+            const Mall = Math.min(...NumberLevels);
+            console.log('Overall Maturity Level:', Mall);
+          } else {
+            console.log('No numeric data found.');
+          }
         });
       
         // Clear or empty any existing output display
