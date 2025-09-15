@@ -184,7 +184,7 @@ function fetchAndFilterSheet() {
       } else {
         document.getElementById('output').textContent = 'No match found.';
       }
-      const firstChars = filtered.map(str => str.charAt(0)); 
+      const firstChars = row.map(cell => String(cell).charAt(0));
       // or simpler: str => str[0]
 
       console.log(firstChars); // Output: ["A", "B", "C", "D"]
